@@ -9,13 +9,14 @@
 <body>
 
 <p id="p1">
-  Enter A Date To Start Countdown
+  Enter A Time To Start Countdown
 </p>
 
 <form id="frm1" action="form_action.asp">
   Day : &nbsp &nbsp <input type="text" name="dname" ><br>
   Month : <input type="text" name="mname" ><br>
-  Year : &nbsp <input type="text" name="yname" ><br><br>
+  Year : &nbsp <input type="text" name="yname" ><br>
+  Time : &nbsp <input type="text" name="tname" ><br><br>
 </form>
 
 <div style="text-align:center;">
@@ -34,15 +35,14 @@ function myFunction() {
     var x = document.getElementById("frm1");
     var text = "";
     var i;
-    text = x.elements[1].value + " " + x.elements[0].value + " " + x.elements[2].value;
-    var deadline=text;
+    text = x.elements[1].value + " " + x.elements[0].value + " " + x.elements[2].value + " " + x.elements[3].value;
+    var deadline = text;
     var t = Date.parse(deadline) - Date.parse(new Date());
     var m = x.elements[1].value.toLowerCase();
     var d = x.elements[0].value;
     var y = x.elements[2].value;
-    
     if(isNaN(t))
-          document.getElementById("clockdiv").innerHTML = '<br>' + "Please Enter A Valid Date" + '<br>' + "Eg: 05 September 2016" ;
+          document.getElementById("clockdiv").innerHTML = '<br>' + "Please Enter A Valid Date" + '<br>' + "Eg: 05 September 2016 12:00:00" ;
     else
     {
     if(m=="january"||m=="march"||m=="may"||m=="july"||m=="august"||m=="october"||m=="december")
@@ -50,7 +50,7 @@ function myFunction() {
             if(d>31||d<1)
                   document.getElementById("clockdiv").innerHTML = '<br>' + "This Date Does Not Exist!";
             else if(t<=0)
-                  document.getElementById("clockdiv").innerHTML = '<br>' + "The Date Has Already Passed!";
+                  document.getElementById("clockdiv").innerHTML = '<br>' + "The Time Has Already Passed!";
             else 
                   initializeClock('clockdiv', deadline);
           }
@@ -59,7 +59,7 @@ function myFunction() {
           if(d>30||d<1)
                   document.getElementById("clockdiv").innerHTML = '<br>' + "This Date Does Not Exist!";
           else if(t<=0)
-                  document.getElementById("clockdiv").innerHTML = '<br>' + "The Date Has Already Passed!";
+                  document.getElementById("clockdiv").innerHTML = '<br>' + "The Time Has Already Passed!";
           else 
                   initializeClock('clockdiv', deadline);
         }
@@ -70,7 +70,7 @@ function myFunction() {
             if(d>29||d<1)
               document.getElementById("clockdiv").innerHTML = '<br>' + "This Date Does Not Exist!";
             else if(t<=0)
-                  document.getElementById("clockdiv").innerHTML = '<br>' + "The Date Has Already Passed!";
+                  document.getElementById("clockdiv").innerHTML = '<br>' + "The Time Has Already Passed!";
             else 
                   initializeClock('clockdiv', deadline);
 
@@ -80,7 +80,7 @@ function myFunction() {
               if(d>28||d<1)
                   document.getElementById("clockdiv").innerHTML = '<br>' + "This Date Does Not Exist!";
             else if(t<=0)
-                  document.getElementById("clockdiv").innerHTML = '<br>' + "The Date Has Already Passed!";
+                  document.getElementById("clockdiv").innerHTML = '<br>' + "The Time Has Already Passed!";
             else 
                   initializeClock('clockdiv', deadline);
 
