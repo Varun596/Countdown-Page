@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+
+<head>
+	<title> CountdownPage </title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<p id="p1">
+  Enter A Date To Start Countdown
+</p>
+
+<form id="frm1" action="form_action.asp">
+  Day : &nbsp &nbsp <input type="text" name="dname" ><br>
+  Month : <input type="text" name="mname" ><br>
+  Year : &nbsp <input type="text" name="yname" ><br><br>
+</form>
+
+<div style="text-align:center;">
+    <button id="Try" onclick="myFunction()">Start Countdown!</button>
+</div>
+
+<div id="clockdiv" >
+</div>
+
+<script>
+
+var timeinterval;
+
+function myFunction() {
+  clearInterval(timeinterval);
+    var x = document.getElementById("frm1");
+    var text = "";
+    var i;
+    text = x.elements[1].value + " " + x.elements[0].value + " " + x.elements[2].value;
+    var deadline=text;
+    var t = Date.parse(deadline) - Date.parse(new Date());
+    var m = x.elements[1].value.toLowerCase();
+    var d = x.elements[0].value;
+    var y = x.elements[2].value;
+    
+    if(isNaN(t))
+          document.getElementById("clockdiv").innerHTML = '<br>' + "Please Enter A Valid Date" + '<br>' + "Eg: 05 September 2016" ;
+    else
+    {
+    if(m=="january"||m=="march"||m=="may"||m=="july"||m=="august"||m=="october"||m=="december")
+          {
+            if(d>31||d<1)
+                  document.getElementById("clockdiv").innerHTML = '<br>' + "This Date Does Not Exist!";
+            else if(t<=0)
+                  document.getElementById("clockdiv").innerHTML = '<br>' + "The Date Has Already Passed!";
+            else 
+                  initializeClock('clockdiv', deadline);
+          }
+    else if(m=="april"||m=="june"||m=="september"||m=="november")
+        {
+          if(d>30||d<1)
+                  document.getElementById("clockdiv").innerHTML = '<br>' + "This Date Does Not Exist!";
+          else if(t<=0)
+                  document.getElementById("clockdiv").innerHTML = '<br>' + "The Date Has Already Passed!";
+          else 
+                  initializeClock('clockdiv', deadline);
+        }
+    else
+        {
+          if(y%4==0)
+          {
+            if(d>29||d<1)
+              document.getElementById("clockdiv").innerHTML = '<br>' + "This Date Does Not Exist!";
+            else if(t<=0)
+                  document.getElementById("clockdiv").innerHTML = '<br>' + "The Date Has Already Passed!";
+            else 
+                  initializeClock('clockdiv', deadline);
+
+          }
+          else
+          {
+              if(d>28||d<1)
+                  document.getElementById("clockdiv").innerHTML = '<br>' + "This Date Does Not Exist!";
+            else if(t<=0)
+                  document.getElementById("clockdiv").innerHTML = '<br>' + "The Date Has Already Passed!";
+            else 
+                  initializeClock('clockdiv', deadline);
+
+          }
+        }  
+    }
+ }
+
+
+function getTimeRemaining(endtime){
+  var t = Date.parse(endtime) - Date.parse(new Date());
+  var seconds = Math.floor( (t/1000) % 60 );
+  var minutes = Math.floor( (t/1000/60) % 60 );
+  var hours = Math.floor( (t/(1000*60*60)) % 24 );
+  var days = Math.floor( t/(1000*60*60*24) );
+  return {
+    'total': t,
+    'days': days,
+    'hours': hours,
+    'minutes': minutes,
+    'seconds': seconds
+  };
+}
+
+
+function initializeClock(id, endtime){
+
+var clock = document.getElementById(id);
+var daysSpan = clock.querySelector('.days');
+var hoursSpan = clock.querySelector('.hours');
+var minutesSpan = clock.querySelector('.minutes');
+var secondsSpan = clock.querySelector('.seconds');
+  function updateClock(){
+  var t = getTimeRemaining(endtime);
+
+    clock.innerHTML = '<br>' + t.days + ' Days ' + t.hours + ' Hours ' + t.minutes + ' Minutes ' + ('0' + t.seconds).slice(-2) + ' Seconds ';   
+  if(t.total<=0){
+    clearInterval(timeinterval);
+  }
+}
+
+updateClock();
+timeinterval = setInterval(updateClock,1000);
+
+}
+
+
+</script>
+
+</body>
+
+</html>
